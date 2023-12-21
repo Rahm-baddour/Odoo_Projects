@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="flower_product_form_view" model="ir.ui.view">
+        <field name="name" >flower.product.form.view</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='options']" position="inside">
+               <span class="d-inline-block">
+                   <field name="is_flower" on_change="1"/>
+                   <label for="is_flower"/>
+               </span>
+            </xpath>
+            <xpath expr="//field[@name='categ_id']" position="after">
+                <label for="flower_id" string="Flower Product"/>
+                <div class="o_row col-5 pl-0">
+                    <field name="flower_id" widget="many2one" options="{'no_open': True}" placeholder="Flower Name"/>
+                </div>
+<!--                <label for="flower_id" string=" flower product"/>-->
+<!--                <div class="o_row col-5 pl-0">-->
+<!--                    <field name="flower_id" />-->
+<!--                </div>-->
+            </xpath>
+        </field>
+
+    </record>
+
+    <record id="flower_product_act_window" model="ir.actions.act_window">
+        <field name="name">Flower products</field>
+        <field name="res_model">product.product</field>
+        <field name="view_mode">kanban,tree,form,activity</field>
+        <field name="context" eval="{'default_is_flower': True}"/>
+        <field name="domain" eval="[('is_flower', '=', True)]"/>
+    </record>
+
+    <menuitem id="flower_product_menu" action="flower_product_act_window" parent="sale.product_menu_catalog"
+              sequence="2"/>
+
+
+</odoo>

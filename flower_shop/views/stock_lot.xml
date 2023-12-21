@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="flower_watering_button" model="ir.ui.view">
+        <field name="name" >flower.watering.button</field>
+        <field name="model">stock.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <field name="is_flower" invisible="1"/>
+                    <button name="action_water_flower" string="Water Flower"
+                    type="object"  class="oe_highlight"
+                            attrs="{'invisible': [('is_flower', '=', False)]}"/>
+<!--                    type="object" class="btn-primary" />-->
+                </header>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="watering_times_button" model="ir.ui.view">
+        <field name="name" >flower.watering.times.button</field>
+        <field name="model">stock.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_form"/>
+        <field name="arch" type="xml">
+<!--            ...-->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button class="oe_stat_button"
+                        name="action_open_watering_times"
+                        icon="fa-shower"
+                        type="object"
+                        attrs="{'invisible': [('is_flower', '=', False)]}">
+
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_text text-wrap">Watering Times</span>
+                    </div>
+                </button>
+            </xpath>
+            <xpath expr="//sheet" position="before">
+                <field name="needs_watering" invisible="1"/>
+                <widget name="web_ribbon" title="needs watering" bg_color="bg-danger" attrs="{'invisible': [('needs_watering', '=', False)]}"/>
+<!--                attrs="{'invisible': [('element.order_line.product_id.need_watering', '=', True)]}"-->
+            </xpath>
+        </field>
+    </record>
+
+
+
+
+
+    <record id="action_flower_water" model="ir.actions.server">
+            <field name="name">water flowers</field>
+            <field name="model_id" ref="model_stock_lot"/>
+        <field name="binding_model_id" ref="flower_shop.model_stock_lot"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.action_water_flower()
+            </field>
+    </record>
+
+
+
+
+
+
+
+<!--    <record id="flower_watering_button_view" model="ir.ui.view">-->
+<!--         <field name="name" >fflower.watering.button.view</field>-->
+<!--        <field name="model">stock.production.lot</field>-->
+<!--        <field name="inherit_id" ref="stock.view_production_lot_form"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//sheet" position="before">-->
+<!--                <header>-->
+<!--                    <field name="is_flower" invisible="1"/>-->
+<!--                    <button string="Water Flower" type="object" name="action_water_flower" class="oe_highlight"-->
+<!--                            attrs="{'invisible': [('is_flower', '=', False)]}"/>-->
+<!--                </header>-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+</odoo>

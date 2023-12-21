@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="flower_shop_tree_view" model="ir.ui.view">
+        <field name="name" >flower.shop.tree.view</field>
+        <field name="model">flower.shop.flower</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="common_name" />
+                <field name="scientific_name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="flower_shop_form_view" model="ir.ui.view">
+        <field name="name" >flower.shop.form.view</field>
+        <field name="model">flower.shop.flower</field>
+        <field name="arch" type="xml">
+            <form>
+               <sheet>
+                   <group>
+                       <group>
+                           <field name="common_name"/>
+                           <field name="scientific_name"/>
+                           <field name="watering_frequency"/>
+                           <field name="watering_amount"/>
+                       </group>
+                       <group>
+                           <field name="season_start_date"/>
+                           <field name="season_end_date"/>
+                       </group>
+                   </group>
+               </sheet>
+               <field name="common_name" />
+               <field name="scientific_name" />
+           </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="flower_action_window">
+        <field name="name">Flower</field>
+        <field name="res_model">flower.shop.flower</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Flower Shop" id="flower_shop_base_menu"
+    action="flower_action_window"
+    sequence="10"/>/>
+<!--    <menuitem name="Flowers" id="flower_base_menu"-->
+<!--              parent="flower_shop_base_menu"/>-->
+<!--    <menuitem name="flowers" id="flowers_list" parent="flower_base_menu"-->
+<!--    action="flower_action_window"-->
+<!--    sequence="10"/>-->
+
+
+
+</odoo>

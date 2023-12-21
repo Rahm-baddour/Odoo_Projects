@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="gardner_category" model="ir.module.category">
+            <!-- this id is used in manifest in the category -->
+            <field name="name">gardner</field>
+            <field name="sequence">10</field>
+        </record>
+
+        <record id="flower_shop_gardners" model="res.groups">
+             <field name="name">Gardner</field>
+<!--            <field name="category_id" ref="flower_shop.gardner_category" />-->
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+        </record>
+    </data>
+</odoo>

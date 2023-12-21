@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_flower_shop_flower,access_flower_shop_flower,model_flower_shop_flower,,1,1,1,1
+access_flower_shop_flower,access_flower_shop_water,model_flower_shop_water,,1,1,1,1
+,,,,,

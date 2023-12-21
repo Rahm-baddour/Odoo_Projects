@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo>
+
+    <record id="find_plants_that_needs_watering" model="ir.cron">
+        <field name="name">Find plants that needs watering</field>
+        <field name="model_id" ref="model_product_product"/>
+        <field name="state">code</field>
+        <field name="code">model.action_needs_watering()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="True"/>
+<!--        <field name="nextcall" eval="datetime.datetime.combine(fields.Datetime.now(), datetime.time(0, 0))"/>-->
+    </record>
+    <record forcecreate="True" id="get_weather_for_all_warehouses" model="ir.cron">
+            <field name="name">Get Weather</field>
+            <field name="model_id" ref="flower_shop.model_stock_warehouse" />
+            <field name="state">code</field>
+            <field name="code">
+                model.get_weather_all_warehouses()
+            </field>
+            <field eval="True" name="active" />
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <!-- True -> missed occurrences should be executed when the server restarts. -->
+            <field eval="True" name="doall" />
+            <field name="nextcall" eval="(DateTime.now() + timedelta(hours=1)).strftime('%Y-%m-%d %H:%M:%S')"/>
+        </record>
+
+        <record forcecreate="True" id="get_weather_forecast_for_all_warehouses" model="ir.cron">
+            <field name="name">Get Forecast</field>
+            <field name="model_id" ref="flower_shop.model_stock_warehouse" />
+            <field name="state">code</field>
+            <field name="code">
+                model.get_forecast_all_warehouses()
+            </field>
+            <field eval="True" name="active" />
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field eval="True" name="doall" />
+            <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')"/>
+        </record>
+</odoo>

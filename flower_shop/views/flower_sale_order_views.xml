@@ -1,0 +1,77 @@
+<odoo>
+    <data>
+        <record id="flower_sale_order_paperformat" model="report.paperformat">
+            <field name="name">flower_sale_order_paperformat</field>
+            <field name="format">A4</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">0</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report id="flower_shop.flower_sale_order_report"
+                model="sale.order"
+                string="Flower Sale Order"
+                report_type="qweb-pdf"
+                name="flower_shop.report_flower_sale_order"
+                file="flower_shop.report_flower_sale_order"
+        />
+
+        <record id="flower_shop.flower_sale_order_report_action" model="ir.actions.report">
+            <field name="name">flower_sale_order_paperformat</field>
+            <field name="model">sale.order</field>
+            <field name="report_name">flower_sale_order_paperformat</field>
+            <field name="paperformat_id" ref="flower_shop.flower_sale_order_paperformat"/>
+        </record>
+
+
+        <template id="report_flower_sale_order">
+            <t t-call="web.html_container">
+                <t t-call="flower_shop.report_flower_sale_order_document" />
+            </t>
+        </template>
+
+    <template id="flower_shop.report_flower_sale_order_document">
+        <t t-set="report_header_style" t-value="'display: none;'"/>
+        <t t-set="footer" t-value="'oe_hidden'"/>
+        <t t-call="web.external_layout">
+            <div class="page">
+                <center><strong t-esc="docs[0].company_id.name"/></center>
+            </div>
+            <p style="page-break-after:always;"></p>
+            <t t-foreach="docs.order_line.product_id.flower_id" t-as="flower">
+                <div class="page">
+                    <h2>
+                        <span>Flower Product</span>
+                    </h2>
+                    <table border="1" style="width:100%;">
+                        <thead >
+                            <th><center>Common Name</center></th>
+                            <th><center>Scientific Name</center></th>
+                            <th><center>Season Start</center></th>
+                            <th><center>Season End</center></th>
+                            <th><center>Watering Frequency</center></th>
+                            <th><center>Watering Amount (ml)</center></th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td name="td_name"><center><span t-field="flower.common_name"/></center></td>
+                                <td name="td_name"><center><span t-field="flower.scientific_name"/></center></td>
+                                <td name="td_name"><center><span t-field="flower.season_start_date"/></center></td>
+                                <td name="td_name"><center><span t-field="flower.season_end_date"/></center></td>
+                                <td name="td_name"><center><span t-field="flower.watering_frequency"/></center></td>
+                                <td name="td_name"><center><span t-field="flower.watering_amount"/></center></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p style="page-break-after:always;"></p>
+                </div>
+            </t>
+        </t>
+    </template>
+    </data>
+</odoo>
+
+
