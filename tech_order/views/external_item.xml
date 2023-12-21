@@ -1,0 +1,47 @@
+<odoo>
+    <data>
+        <record id="external_item_tree_view" model="ir.ui.view">
+            <field name="name">external.item.tree.view</field>
+            <field name="model">external.item</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="product_id" />
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="external_item_form_view" model="ir.ui.view">
+            <field name="name">external.item.form.view</field>
+            <field name="model">external.item</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="product_id" />
+                            <field name="order_id" widget="many2many_tags" />
+                        </group>
+                        <!--
+                        <group>
+                            <field name="quantity" />
+                            <field name="price" />
+                            <field name="total_price" />
+                        </group>
+                        -->
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="external_item_action_window" model="ir.actions.act_window">
+            <field name="name">External Item</field>
+            <field name="res_model">external.item</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="External Items" id="external_items_menu"
+                  parent="order_order_base_menu"
+                  action="external_item_action_window" sequence="30"/>
+
+    </data>
+</odoo>

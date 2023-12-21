@@ -1,0 +1,86 @@
+<odoo>
+    <data>
+        <record id="tech_order_category" model="ir.module.category">
+            <!-- this id is used in manifest in the category -->
+            <field name="name">Order</field>
+            <field name="sequence">10</field>
+        </record>
+
+
+        <record id="tech_order_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="category_id" ref="tech_order.tech_order_category" />
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+                            <!-- 4 means link, adds a relationship to the specified user id -->
+        </record>
+
+        <record id="tech_order_mgr" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="tech_order.tech_order_category" />
+            <field name="implied_ids" eval="[(4, ref('tech_order_user'))]" />
+        </record>
+
+        <record id="tech_order_external" model="res.groups">
+            <field name="name">External Order</field>
+        </record>
+
+        <record id="tech_order_internal" model="res.groups">
+            <field name="name">Internal Order</field>
+        </record>
+
+        <!-- record rule -->
+        <record id="own_order_only" model="ir.rule">
+            <field name="name">Own Order</field>
+            <field name="model_id" ref="tech_order.model_order_order" />
+             <!-- it understands that current user is the one implied here -->
+            <field name="domain_force">
+                [('create_uid', '=', user.id), ('state', '!=', 'cancelled')]
+            </field>
+            <field name="perm_read">1</field>
+            <field name="perm_create">1</field>
+            <field name="perm_unlink">1</field>
+            <field name="perm_write">1</field>
+            <field name="groups" eval="[(4, ref('tech_order.tech_order_user'))]" />
+        </record>
+
+        <record id="all_orders" model="ir.rule">
+            <field name="name">All Order</field>
+            <field name="model_id" ref="tech_order.model_order_order" />
+            <field name="domain_force">
+                [(1, '=', 1)]
+            </field>
+            <field name="perm_read">1</field>
+            <field name="perm_create">1</field>
+            <field name="perm_unlink">1</field>
+            <field name="perm_write">1</field>
+            <field name="groups" eval="[(4, ref('tech_order.tech_order_mgr'))]" />
+        </record>
+
+        <record id="external_orders_only" model="ir.rule">
+            <field name="name">External Order</field>
+            <field name="model_id" ref="tech_order.model_order_order" />
+            <field name="domain_force">
+                [('order_type', '=', 'external')]
+            </field>
+            <field name="perm_read">1</field>
+            <field name="perm_create">1</field>
+            <field name="perm_unlink">1</field>
+            <field name="perm_write">1</field>
+            <field name="groups" eval="[(4, ref('tech_order.tech_order_external'))]" />
+        </record>
+
+        <record id="internal_orders_only" model="ir.rule">
+            <field name="name">Internal Order</field>
+            <field name="model_id" ref="tech_order.model_order_order" />
+            <field name="domain_force">
+                [('order_type', '=', 'internal')]
+            </field>
+            <field name="perm_read">1</field>
+            <field name="perm_create">1</field>
+            <field name="perm_unlink">1</field>
+            <field name="perm_write">1</field>
+            <field name="groups" eval="[(4, ref('tech_order.tech_order_internal'))]" />
+        </record>
+
+    </data>
+</odoo>

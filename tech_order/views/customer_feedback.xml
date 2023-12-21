@@ -1,0 +1,92 @@
+<odoo>
+    <data>
+        <record id="customer_feedback_tree_view" model="ir.ui.view">
+            <field name="name">customer.feedback.tree.view</field>
+            <field name="model">customer.feedback</field>
+            <field name="arch" type="xml">
+                <!-- editable="top/bottom" to let us insert data into the
+                     tree view without building a form view-->
+                <tree editable="top">
+                    <field name="name" />
+                    <field name="customer_id" />
+                    <field name="meal_id" />
+                    <field name="comment" />
+                    <field name="reason" />
+                    <field name="rate" widget="priority" />
+                    <field name="state" widget="badge"
+                                        decoration-success="state == 'approved'"
+                                        decoration-danger="state == 'rejected'"
+                                        decoration-muted="state == 'new'"
+                    />
+                    <!-- states make the button appear based on a state
+                         same as attrs, they work fine together -->
+                    <button name="action_approved" states="new" string="Approve"
+                            class="btn-success" type="object" attrs="{'invisible': [('state', '!=', 'new')]}" />
+                    <button name="%(tech_order.feedback_rejection_reason_wizard_action_window)d"
+                                string="Reject" class="btn-danger" type="action"
+                                attrs="{'invisible': [('state', '!=', 'new')]}"/>
+                </tree>
+            </field>
+        </record>
+
+<!--
+        <record id="customer_feedback_form_view" model="ir.ui.view">
+            <field name="name">customer.feedback.form.view</field>
+            <field name="model">customer.feedback</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="state" widget="statusbar" />
+                    </header>
+                    <sheet>
+                        <h2>
+                            <group>
+                                <field name="name" />
+                            </group>
+                        </h2>
+                        <group>
+                            <group>
+                                <field name="customer_id" />
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="meal_id" />
+                                    <field name="rate" />
+                                </group>
+                                <field name="order_type" />
+                                <field name="table_number" />
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="comment" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+-->
+        <record id="customer_feedback_search_view" model="ir.ui.view">
+            <field name="name">customer.feedback.search.view</field>
+            <field name="model">customer.feedback</field>
+            <field name="arch" type="xml">
+                <search>
+
+                </search>
+            </field>
+        </record>
+
+
+        <record id="customer_feedback_action_window" model="ir.actions.act_window">
+            <field name="name">Customers feedback</field>
+            <field name="res_model">customer.feedback</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+
+        <menuitem name="Feedbacks" id="customer_feedback_menu"
+                  parent="order_base_menu"
+                  action="customer_feedback_action_window" sequence="20"/>
+    </data>
+</odoo>

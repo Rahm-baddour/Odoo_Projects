@@ -1,0 +1,27 @@
+<odoo>
+    <data>
+        <record id="feedback_rejection_reason_wizard_form_view" model="ir.ui.view">
+            <field name="name">feedback.rejection.reason.wizard.form.view</field>
+            <field name="model">feedback.rejection.reason.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="reason" />
+                    </group>
+                    <footer>
+                        <button name="add_rejection_reason" string="Add" type="object" class="oe_highlight"/>
+                        <!-- context="{'active_ids': active_id}" -->
+                        <button string="Close" class="btn-danger" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="feedback_rejection_reason_wizard_action_window" model="ir.actions.act_window">
+            <field name="name">Feedback Rejection Reason</field>
+            <field name="res_model">feedback.rejection.reason.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

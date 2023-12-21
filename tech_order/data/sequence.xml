@@ -1,0 +1,16 @@
+<odoo>
+    <!-- noupdate="1" makes the sequence NOT change on upgrade -->
+    <data noupdate="1">
+        <record id="order_order_sequence" model="ir.sequence">
+            <field name="name">Order Sequence</field>
+            <field name="code">order_order_name_seq</field>
+            <field name="active">True</field>
+            <field name="prefix">O-</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">1</field>
+             <!--sequence_size, for example order number 1 is O-0001-->
+            <field name="padding">4</field>
+            <field name="implementation">standard</field>
+        </record>
+    </data>
+</odoo>

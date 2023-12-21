@@ -1,0 +1,32 @@
+<odoo>
+    <data>
+
+        <record id="external_item_wizard_form_view" model="ir.ui.view">
+            <field name="name">external.item.wizard.form.view</field>
+            <field name="model">external.item.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="external_items" widget="many2many_tags" />
+                        </group>
+                        <fotter>
+                            <button name="add_items" string="Add" type="object" class="oe_highlight"/>
+                                    <!-- context="{'active_ids': active_id}" -->
+                            <button string="Close" class="btn-danger" special="cancel"/>
+                        </fotter>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="external_item_wizard_action_window" model="ir.actions.act_window">
+            <field name="name">External Item</field>
+            <field name="res_model">external.item.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+    </data>
+</odoo>

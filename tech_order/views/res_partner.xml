@@ -1,0 +1,18 @@
+<odoo>
+    <data>
+        <record id="order_order_res_partner_rank_form_view" model="ir.ui.view">
+            <field name="name">order.partner.rank.view.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <!-- if there are multiple fields with the name vat -->
+            <!-- we use "//field[@name='vat'][2]" -->
+            <!-- we specify the field's index ^ -->
+            <!-- we have 4 positions: before, after, replace, attribute-->
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='vat']" position="after">
+                    <field name="customer_rank" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

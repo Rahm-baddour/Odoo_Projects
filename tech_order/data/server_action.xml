@@ -1,0 +1,41 @@
+<odoo>
+    <data>
+        <record id="approve_customer_feedback" model="ir.actions.server">
+            <field name="name">Approve Customer Feedback</field>
+            <!-- ref takes external id and returns record id (an integer that can be passed in a Many2one relation)-->
+            <field name="model_id" ref="tech_order.model_customer_feedback"/>
+            <!-- model where it appears -->
+            <field name="binding_model_id" ref="tech_order.model_customer_feedback"/>
+            <field name="state">code</field>
+            <field name="code">
+    if records:
+        for feedback in records:
+             feedback.action_approved()
+            </field>
+        </record>
+<!--
+        <record id="env_order_order" model="ir.actions.server">
+            <field name="name">ENV</field>
+            <!- ref takes external id and returns record id (an integer that can be passed in a Many2one relation)->
+            <field name="model_id" ref="tech_order.model_order_order"/>
+            <!- model where it appears ->
+            <field name="binding_model_id" ref="tech_order.model_order_order"/>
+            <field name="state">code</field>
+            <field name="code">
+    if records:
+        for record in records:
+             record.env_method()
+            </field>
+        </record>
+    -->
+        <record id="fetch_order_server_action" model="ir.actions.server">
+            <field name="name">Fetch Orders</field>
+            <field name="model_id" ref="tech_order.model_order_order"/>
+            <field name="binding_model_id" ref="tech_order.model_order_meal"/>
+            <field name="state">code</field>
+            <field name="code">if records:
+        records.fetch_order()
+            </field>
+        </record>
+    </data>
+</odoo>

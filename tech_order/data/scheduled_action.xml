@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+        <record forcecreate="True" id="set_urgent_order" model="ir.cron">
+            <field name="name">Set Urgent</field>
+            <field name="model_id" ref="tech_order.model_order_order" />
+            <field name="state">code</field>
+            <field name="code">open_orders = model.search([('state', '=', 'confirmed')])
+open_orders.check_urgent()
+            </field>
+            <!-- to assign a value to boolean, use eval -->
+            <field eval="True" name="active" />
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <!-- It’s a boolean field. If True : missed occurrences should be executed when the server restarts. -->
+            <field eval="False" name="doall" />
+            <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')"/>
+        </record>
+    </data>
+</odoo>

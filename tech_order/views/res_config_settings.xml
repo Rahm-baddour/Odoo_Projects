@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="res_config_settings_order_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.order</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="35" />
+            <field name="inherit_id" ref="base.res_config_settings_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('settings')]" position="inside">
+                    <div class="app_settings_block" data-string="Tech Order" string="Tech Order" data-key="tech_order" groups="tech_order.tech_order_mgr">
+                        <h2>Order Settings</h2>
+                        <div class="row mt16 o_settings_container">
+                            <div class="col-lg-6 col-12 o_setting_box" id="internal_order" title="Internal Order">
+                                <span class="o_form_label">Max Table Number</span>
+                                <div class="o_setting_left_pane">
+                                    <field name="max_table_number" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="order_configuration_action_window" model="ir.actions.act_window">
+            <field name="name">Settings</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+            <field name="context">{'module': 'tech_order'}</field>
+            <!-- module name should be the same as data-key in its config above ^-->
+        </record>
+
+        <menuitem name="Settings" id="order_config_menu"
+                  parent="tech_order.order_base_menu" sequence="100"
+                  action="order_configuration_action_window" groups="base.group_system"/>
+    </data>
+</odoo>

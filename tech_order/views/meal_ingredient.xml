@@ -1,0 +1,46 @@
+<odoo>
+    <data>
+        <record id="meal_ingredient_tree_view" model="ir.ui.view">
+            <field name="name">meal.ingredient.tree.view</field>
+            <field name="model">meal.ingredient</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="meal_ingredient_form_view" model="ir.ui.view">
+            <field name="name">meal.ingredient.form.view</field>
+            <field name="model">meal.ingredient</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <h2>
+                            <group>
+                                <field name="name" />
+                            </group>
+                        </h2>
+                        <group>
+                            <field name="quantity" />
+                        </group>
+                        <group>
+                            <field name="product_id" />
+                            <!-- domain="[('detailed_type', '=', 'product')]" -->
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="meal_ingredient_action_window" model="ir.actions.act_window">
+            <field name="name">Ingredient</field>
+            <field name="res_model">meal.ingredient</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Meal Ingredients" id="meal_ingredient_menu"
+                  parent="meal_order_base_menu"
+                  action="meal_ingredient_action_window" sequence="30"/>
+    </data>
+</odoo>
